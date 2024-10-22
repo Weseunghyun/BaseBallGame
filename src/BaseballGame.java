@@ -11,7 +11,7 @@ public class BaseballGame {
     private Scanner sc;
     private LinkedHashMap<Integer, Integer> map = new LinkedHashMap<>();
     private static int key = 0;
-    private static int level = 0;
+    private static int level = 3; //초기 레벨 3
 
     public BaseballGame(){
         this.generator = new RandomNumGenerator();
@@ -21,7 +21,6 @@ public class BaseballGame {
     }
 
     public void play() {
-
         while (true) {
             display.startComment();
             int choice = sc.nextInt();
@@ -29,7 +28,12 @@ public class BaseballGame {
 
             switch (choice) {
                 case 0:
-                    level = display.levelSelect();
+                    try {
+                        level = display.levelSelect();
+                    }catch (Exception e){
+                        System.out.println(e.getMessage());
+                    }
+                    break;
                 case 1:
                     map.put(key, 0);
                     gameStart();

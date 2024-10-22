@@ -2,7 +2,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-//오로지 출력하는 역할
+//대부분 출력하는 역할
 public class BaseballGameDisplay {
     Scanner sc = new Scanner(System.in);
     //게임 시작 코멘트
@@ -11,11 +11,17 @@ public class BaseballGameDisplay {
         System.out.println("0. 자리수 설정 1. 게임 시작하기 2. 게임 기록 보기 3. 종료하기");
     }
 
-    public int levelSelect(){
+    public int levelSelect() throws Exception {
         System.out.println("설정하고자 하는 자리수를 입력하세요 (3~5)");
-        int level =  sc.nextInt();
+
+        String level =  sc.nextLine();
+        if(!level.matches("^[3-5]$")){
+            throw new Exception("3,4,5 만 입력가능합니다.");
+        }
         System.out.println(level + "자리수 난이도로 설정되었습니다.");
-        return level;
+        System.out.println();
+
+        return Integer.parseInt(level);
     }
 
     //사용자 입력과 랜덤 정수와의 비교값을 통해 응답 문자열을 return 함.
