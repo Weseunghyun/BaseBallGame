@@ -4,12 +4,15 @@ import java.util.Scanner;
 public class BaseballGame {
 
     private String answer;
-    private BaseballGameDisplay baseballGameDisplay = new BaseballGameDisplay();
-
+    private BaseballGameDisplay display;
+    private RandomNumGenerator generator;
+    private UserInputValidator validator;
     //BaseballGame객체를 생성하면 RandomGenerator 클래스를 통해 랜덤 정수 생성
     public BaseballGame(){
-        RandomNumGenerator generator = new RandomNumGenerator();
+        this.generator = new RandomNumGenerator();
         this.answer = generator.generateRandomNum();
+        this.display = new BaseballGameDisplay();
+        this.validator = new UserInputValidator();
         System.out.println(answer);
     }
 
@@ -20,15 +23,19 @@ public class BaseballGame {
             System.out.print("숫자를 입력하세요 : ");
             String adjustNum =  sc.nextLine();
 
+            //validator가 true를 리턴하면 올바르게 수행 false라면 오류 메시지 출력
+            if(validator.validateUserInput(adjustNum)) {
+                //메서드를 통해 스트라이크와 볼 개수 반환
+                int strike = countStrike(adjustNum);
+                int ball = countBall(adjustNum);
+                String response = display.display(strike, ball);
+                System.out.println(response);
 
-            //메서드를 통해 스트라이크와 볼 개수 반환
-            int strike = countStrike(adjustNum);
-            int ball = countBall(adjustNum);
-            String response = baseballGameDisplay.display(strike,ball);
-            System.out.println(response);
-
-            if (response.equals("정답입니다!")){
-                break;
+                if (response.equals("정답입니다!")) {
+                    break;
+                }
+            }else {
+                display.displayInvalidInputMessage();
             }
         }
     }

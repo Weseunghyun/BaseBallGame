@@ -8,6 +8,7 @@ import java.util.Set;
 public class RandomNumGenerator {
 
     public String generateRandomNum(){
+        //알아서 중복인 값을 적용하지 않도록 Set으로 시작
         Set<Integer> randomNumSet = new HashSet<>();
 
         while (randomNumSet.size() < 3) {
