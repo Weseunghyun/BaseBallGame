@@ -12,6 +12,10 @@ public class BaseballGameDisplay {
             return  "아웃";
         } else if (strike == 3){
             return "정답입니다!";
+        } else if (strike >=1 && ball == 0){
+            return strike+"스트라이크";
+        } else if (strike ==0 && ball >= 0) {
+            return ball + "볼";
         }else{
             return strike + "스트라이크 " + ball + "볼";
         }
@@ -20,5 +24,6 @@ public class BaseballGameDisplay {
     public void displayInvalidInputMessage(){
         // 아직 미구현
         System.out.println("올바르지 않은 입력값입니다.");
+        System.out.println();
     }
 }
