@@ -11,6 +11,7 @@ public class BaseballGame {
     private Scanner sc;
     private LinkedHashMap<Integer, Integer> map = new LinkedHashMap<>();
     private static int key = 0;
+    private static int level = 0;
 
     public BaseballGame(){
         this.generator = new RandomNumGenerator();
@@ -27,6 +28,8 @@ public class BaseballGame {
             sc.nextLine();
 
             switch (choice) {
+                case 0:
+                    level = display.levelSelect();
                 case 1:
                     map.put(key, 0);
                     gameStart();
@@ -46,20 +49,21 @@ public class BaseballGame {
     }
 
     private void gameStart() {
-        answer = generator.generateRandomNum();
+        answer = generator.generateRandomNum(level);
         System.out.println(answer);
 
         System.out.println("게임을 시작합니다!");
         while (true) {
+
             System.out.print("숫자를 입력하세요 : ");
             String adjustNum = sc.nextLine();
 
             //validator가 true를 리턴하면 올바르게 수행 false라면 오류 메시지 출력
-            if (validator.validateUserInput(adjustNum)) {
+            if (validator.validateUserInput(adjustNum, level)) {
                 //메서드를 통해 스트라이크와 볼 개수 반환
                 int strike = countStrike(adjustNum);
                 int ball = countBall(adjustNum);
-                String response = display.displayResponse(strike, ball);
+                String response = display.displayResponse(strike, ball, level);
                 System.out.println(response);
                 System.out.println();
 

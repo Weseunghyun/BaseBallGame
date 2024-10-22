@@ -2,16 +2,18 @@
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Scanner;
 import java.util.Set;
 
 //랜덤 세자리 정수를 생성해주는 클래스
 public class RandomNumGenerator {
+    Scanner sc = new Scanner(System.in);
+    public String generateRandomNum(int level){
 
-    public String generateRandomNum(){
         //알아서 중복인 값을 적용하지 않도록 Set으로 시작
         Set<Integer> randomNumSet = new HashSet<>();
 
-        while (randomNumSet.size() < 3) {
+        while (randomNumSet.size() < level) {
             int randomNum = (int) (Math.random() * 9 + 1);
             randomNumSet.add(randomNum);
         }
@@ -22,6 +24,7 @@ public class RandomNumGenerator {
         //List<Integer> randomNumList = randomNumSet.stream().toList();
         List<Integer> randomNumList = new java.util.ArrayList<>(randomNumSet.stream().toList());
         Collections.shuffle(randomNumList);
+
         StringBuilder randomNumBuilder = new StringBuilder();
         for (int randomNum : randomNumList) {
             randomNumBuilder.append(randomNum);
