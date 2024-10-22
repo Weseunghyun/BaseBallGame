@@ -7,37 +7,53 @@ public class BaseballGame {
     private BaseballGameDisplay display;
     private RandomNumGenerator generator;
     private UserInputValidator validator;
+
     //BaseballGame객체를 생성하면 RandomGenerator 클래스를 통해 랜덤 정수 생성
     public BaseballGame(){
         this.generator = new RandomNumGenerator();
-        this.answer = generator.generateRandomNum();
         this.display = new BaseballGameDisplay();
         this.validator = new UserInputValidator();
-        System.out.println(answer);
     }
 
     public void play() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("게임을 시작합니다!");
-        while (true) {
-            System.out.print("숫자를 입력하세요 : ");
-            String adjustNum =  sc.nextLine();
+        answer = generator.generateRandomNum();
+        System.out.println(answer);
+        display.startComment();
+        int choice = sc.nextInt();
+        sc.nextLine();
 
-            //validator가 true를 리턴하면 올바르게 수행 false라면 오류 메시지 출력
-            if(validator.validateUserInput(adjustNum)) {
-                //메서드를 통해 스트라이크와 볼 개수 반환
-                int strike = countStrike(adjustNum);
-                int ball = countBall(adjustNum);
-                String response = display.display(strike, ball);
-                System.out.println(response);
+        switch (choice){
+            case 1 :
+                System.out.println("게임을 시작합니다!");
+                while (true) {
+                    System.out.print("숫자를 입력하세요 : ");
+                    String adjustNum =  sc.nextLine();
 
-                if (response.equals("정답입니다!")) {
-                    break;
+                    //validator가 true를 리턴하면 올바르게 수행 false라면 오류 메시지 출력
+                    if(validator.validateUserInput(adjustNum)) {
+                        //메서드를 통해 스트라이크와 볼 개수 반환
+                        int strike = countStrike(adjustNum);
+                        int ball = countBall(adjustNum);
+                        String response = display.displayResponse(strike, ball);
+                        System.out.println(response);
+                        System.out.println();
+
+                        if (response.equals("정답입니다!")) {
+                            play();
+                            break;
+                        }
+                    }else {
+                        display.displayInvalidInputMessage();
+                    }
                 }
-            }else {
-                display.displayInvalidInputMessage();
-            }
+                break;
+
+            case 3:
+                System.out.println("게임을 종료합니다...");
+                break;
         }
+
     }
 
     private int countStrike(String adjustNum){

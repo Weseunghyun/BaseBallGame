@@ -1,7 +1,8 @@
 public class UserInputValidator {
-    public UserInputValidator(){
 
-    }
+    public UserInputValidator(){}
+
+    //입력값이 올바른 값인지 검증해주는 메서드
     public boolean validateUserInput(String userInput) {
         //길이가 3이 아니면 false
         if (userInput.length()!=3){
@@ -22,7 +23,6 @@ public class UserInputValidator {
                 return false;
             }
         }
-
 
         if (findZero[0]==findZero[1] || findZero[0]==findZero[2] || findZero[1] == findZero[2]){
             return false;
