@@ -1,3 +1,4 @@
+import java.util.LinkedHashMap;
 import java.util.Scanner;
 
 //게임을 시작! 게임 과정이 올바르게 진행되는지 확인, 종료
@@ -8,6 +9,8 @@ public class BaseballGame {
     private RandomNumGenerator generator;
     private UserInputValidator validator;
     private Scanner sc;
+    private LinkedHashMap<Integer, Integer> map = new LinkedHashMap<>();
+    private static int key = 0;
 
     public BaseballGame(){
         this.generator = new RandomNumGenerator();
@@ -16,8 +19,8 @@ public class BaseballGame {
         this.sc = new Scanner(System.in);
     }
 
-
     public void play() {
+
         while (true) {
             display.startComment();
             int choice = sc.nextInt();
@@ -25,15 +28,19 @@ public class BaseballGame {
 
             switch (choice) {
                 case 1:
+                    map.put(key, 0);
                     gameStart();
                     break;
-
+                case 2:
+                    display.recordDisplay(map);
+                    break;
                 case 3:
-                    System.out.println("게임을 종료합니다...");
+                    System.out.println("< 숫자 야구 게임을 종료합니다 >");
                     return;
 
                 default:
                     System.out.println("잘못된 선택입니다. 다시 선택하세요");
+                    System.out.println();
             }
         }
     }
@@ -56,7 +63,10 @@ public class BaseballGame {
                 System.out.println(response);
                 System.out.println();
 
+                map.put(key, map.get(key) + 1);
+
                 if (response.equals("정답입니다!")) {
+                    key++;
                     break;
                 }
             } else {
