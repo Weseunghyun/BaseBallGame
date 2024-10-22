@@ -10,7 +10,7 @@ public class BaseballGame {
     private UserInputValidator validator;
     private Scanner sc;
     private LinkedHashMap<Integer, Integer> map = new LinkedHashMap<>();
-    private static int key = 0;
+    private static int key = 1;
     private static int level = 3; //초기 레벨 3
 
     public BaseballGame(){
