@@ -1,10 +1,8 @@
-//TIP 코드를 <b>실행</b>하려면 <shortcut actionId="Run"/>을(를) 누르거나
-// 에디터 여백에 있는 <icon src="AllIcons.Actions.Execute"/> 아이콘을 클릭하세요.
-public class Main {
 
+public class Main {
+    //Main 클래스에서는 게임을 실행하는 역할 부여
     public static void main(String[] args) {
-        RandomNumGenerator randomNumGenerator = new RandomNumGenerator();
-        String test = randomNumGenerator.generateRandomNum();
-        System.out.println(test);
+        BaseballGame baseballGame = new BaseballGame();
+        baseballGame.play();
     }
 }

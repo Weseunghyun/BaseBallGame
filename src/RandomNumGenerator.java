@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+//랜덤 세자리 정수를 생성해주는 클래스
 public class RandomNumGenerator {
 
     public String generateRandomNum(){
