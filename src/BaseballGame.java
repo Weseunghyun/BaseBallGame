@@ -4,6 +4,7 @@ import java.util.Scanner;
 public class BaseballGame {
 
     private String answer;
+    private BaseballGameDisplay baseballGameDisplay = new BaseballGameDisplay();
 
     //BaseballGame객체를 생성하면 RandomGenerator 클래스를 통해 랜덤 정수 생성
     public BaseballGame(){
@@ -19,22 +20,16 @@ public class BaseballGame {
             System.out.print("숫자를 입력하세요 : ");
             String adjustNum =  sc.nextLine();
 
+
             //메서드를 통해 스트라이크와 볼 개수 반환
             int strike = countStrike(adjustNum);
             int ball = countBall(adjustNum);
+            String response = baseballGameDisplay.display(strike,ball);
+            System.out.println(response);
 
-            //아웃이 아닌 경우에는 스트라이크와 볼 수를 출력
-            if (strike + ball == 0){
-                System.out.println("아웃");
-                System.out.println();
-            } else if (strike == 3){
-                System.out.println("정답입니다!");
+            if (response.equals("정답입니다!")){
                 break;
-            }else{
-                System.out.println(strike + "스트라이크 " + ball + "볼");
-                System.out.println();
             }
-
         }
     }
 
