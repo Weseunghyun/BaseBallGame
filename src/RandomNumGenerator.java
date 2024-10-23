@@ -3,12 +3,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Scanner;
 import java.util.Set;
 
 //랜덤 세자리 정수를 생성해주는 클래스
 public class RandomNumGenerator {
-    Scanner sc = new Scanner(System.in);
+
     public String generateRandomNum(int level){
 
         //알아서 중복인 값을 적용하지 않도록 Set으로 시작

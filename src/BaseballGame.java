@@ -39,13 +39,16 @@ public class BaseballGame {
             switch (choice) {
                 case 0:
                     try {
-                        level = display.levelSelect();
+                        System.out.println("설정하고자 하는 자리수를 입력하세요 (3~5)");
+                        level = sc.nextInt();
+                        display.levelSelect(level);
                     }catch (Exception e){
                         System.out.println(e.getMessage());
                         continue;
                     }
 
                 case 1:
+                    //게임 기록용 map을 각 스테이지마다 초기화해줌
                     recordMap.put(stage, 0);
                     gameStart();
                     break;
@@ -76,47 +79,39 @@ public class BaseballGame {
             //validator가 true를 리턴하면 올바르게 수행 false라면 오류 메시지 출력
             if (validator.validateUserInput(adjustNum, level)) {
                 //메서드를 통해 스트라이크와 볼 개수 반환
-                int strike = countStrike(adjustNum);
-                int ball = countBall(adjustNum);
-                String response = display.displayResponse(strike, ball, level);
+                StageResult result = getResult(adjustNum);
+                String response = display.returnResponse(result, level);
                 System.out.println(response);
                 System.out.println();
 
                 if (response.equals("정답입니다!")) {
+                    //시도 횟수가 0부터니까 1을 더하여 해당 스테이지의 value 값으로 넣어줌
                     recordMap.put(stage, tryCount+1);
+                    //다음 스테이지 진행을 위해 stage값을 1 늘림.
                     stage++;
                     break;
                 }
             } else {
                 display.displayInvalidInputMessage();
+                //이상한 값을 입력받은 경우에는 시도횟수를 늘리지않는다.
                 tryCount--;
             }
         }
     }
 
-    private int countStrike (String adjustNum){
+    //adjustNum 즉 입력받은 값을 통해 정답과 비교하며 StageResult 객체에 결과를 넣고 생성.
+    private StageResult getResult(String adjustNum) {
         int strikeCount = 0;
-        for (int i = 0; i < adjustNum.length(); i++) {
-            if (adjustNum.charAt(i) == answer.charAt(i)) {
-                strikeCount++;
-            }
-        }
-        return strikeCount;
-    }
-
-    private int countBall (String adjustNum){
         int ballCount = 0;
-        Loop1:
-        for (int i = 0; i < adjustNum.length(); i++) {
-            for (int j = 0; j < adjustNum.length(); j++) {
-                if (i != j) {
-                    if (adjustNum.charAt(i) == answer.charAt(j)) {
-                        ballCount++;
-                        continue Loop1;
-                    }
-                }
+        for (int i=0; i<adjustNum.length(); i++) {
+            char num = adjustNum.charAt(i);
+            if (num == answer.charAt(i)){
+                strikeCount++;
+            }else if(answer.contains(String.valueOf(num))){
+                ballCount++;
             }
         }
-        return ballCount;
+
+        return new StageResult(strikeCount,ballCount);
     }
 }
