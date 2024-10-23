@@ -6,12 +6,12 @@ import java.util.Scanner;
 public class BaseballGame {
 
     private String answer;
-    private BaseballGameDisplay display;
-    private RandomNumGenerator generator;
-    private UserInputValidator validator;
-    private Scanner sc;
-    private LinkedHashMap<Integer, Integer> map = new LinkedHashMap<>();
-    private static int key = 1;
+    private final BaseballGameDisplay display;
+    private final RandomNumGenerator generator;
+    private final UserInputValidator validator;
+    private final Scanner sc;
+    private LinkedHashMap<Integer, Integer> recordMap = new LinkedHashMap<>();
+    private static int stage = 1;
     private static int level = 3; //초기 레벨 3
 
     public BaseballGame(){
@@ -46,11 +46,11 @@ public class BaseballGame {
                     }
 
                 case 1:
-                    map.put(key, 0);
+                    recordMap.put(stage, 0);
                     gameStart();
                     break;
                 case 2:
-                    display.recordDisplay(map);
+                    display.recordDisplay(recordMap);
                     break;
                 case 3:
                     System.out.println("< 숫자 야구 게임을 종료합니다 >");
@@ -68,7 +68,7 @@ public class BaseballGame {
         System.out.println(answer);
 
         System.out.println("게임을 시작합니다!");
-        while (true) {
+       for(int tryCount=0 ; ; tryCount++) {
 
             System.out.print("숫자를 입력하세요 : ");
             String adjustNum = sc.nextLine();
@@ -82,14 +82,14 @@ public class BaseballGame {
                 System.out.println(response);
                 System.out.println();
 
-                map.put(key, map.get(key) + 1);
-
                 if (response.equals("정답입니다!")) {
-                    key++;
+                    recordMap.put(stage, tryCount+1);
+                    stage++;
                     break;
                 }
             } else {
                 display.displayInvalidInputMessage();
+                tryCount--;
             }
         }
     }
