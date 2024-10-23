@@ -12,10 +12,15 @@ public class UserInputValidator {
             return false;
         }
 
-        //정수로 변환하는 작업 수행, 에러 발생하면 false 리턴
-        try {
-            Integer.parseInt(userInput);
-        }catch (NumberFormatException e){
+//        //정수로 변환하는 작업 수행, 에러 발생하면 false 리턴
+//        try {
+//            Integer.parseInt(userInput);
+//        }catch (NumberFormatException e){
+//            return false;
+//        }
+
+        //에러로 흐름제어를 하는 것은 금기시되어 있음. 정규식을 통하도록 확인
+        if (!userInput.matches("(^[1-9]*$)")){
             return false;
         }
 

@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.LinkedHashMap;
 import java.util.Scanner;
 
@@ -21,10 +22,19 @@ public class BaseballGame {
     }
 
     public void play() {
+
         while (true) {
+
             display.startComment();
-            int choice = sc.nextInt();
-            sc.nextLine();
+            int choice = 1;
+            try {
+                choice = sc.nextInt();
+                sc.nextLine();
+            }catch (InputMismatchException e){
+                System.out.println("0~3까지의 숫자만 입력해주세요");
+                sc.next();
+                continue;
+            }
 
             switch (choice) {
                 case 0:
@@ -32,8 +42,9 @@ public class BaseballGame {
                         level = display.levelSelect();
                     }catch (Exception e){
                         System.out.println(e.getMessage());
+                        continue;
                     }
-                    break;
+
                 case 1:
                     map.put(key, 0);
                     gameStart();
